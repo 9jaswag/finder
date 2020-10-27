@@ -14,10 +14,9 @@ export default () => {
     try {
       const response = await fetchValidEmails();
       setUsers(response.user);
-      setIsLoading(false);
-    } catch (error) {
-      setIsLoading(false);
-    }
+    } catch (error) {}
+
+    setIsLoading(false);
   };
 
   useEffect(() => {

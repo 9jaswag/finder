@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Input from "./shared/Input";
 import { findEmail } from "../api";
+import Loader from "./shared/Loader";
 
 export default ({ setUserState }) => {
   const [user, setUser] = useState({
@@ -9,6 +10,7 @@ export default ({ setUserState }) => {
     url: "",
   });
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const onChange = (event) => {
     const {
@@ -29,6 +31,8 @@ export default ({ setUserState }) => {
       return;
     }
 
+    setIsLoading(true);
+
     try {
       const response = await findEmail(user);
       setUserState((prevState) => [...prevState, response.user]);
@@ -45,6 +49,7 @@ export default ({ setUserState }) => {
       last_name: "",
       url: "",
     });
+    setIsLoading(false);
   };
 
   return (
@@ -81,8 +86,9 @@ export default ({ setUserState }) => {
           />
         </div>
         <div className="form-group">
-          <button type="submit" className="submit">
+          <button type="submit" className="submit" disabled={isLoading}>
             SEARCH
+            {isLoading && <Loader width={12} height={12} fill="#ffffff" />}
           </button>
         </div>
       </form>
