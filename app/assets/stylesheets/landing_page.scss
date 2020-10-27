@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: https://sass-lang.com/
 $primary-color: #14213d;
 $secondary-color: #ffffff;
+$red: #d62828;
 $line-height: 2.5;
 
 .wrapper {
@@ -28,6 +29,7 @@ section.hero {
 
   .form {
     place-self: center;
+    display: grid;
 
     form {
       display: inline-grid;
@@ -115,4 +117,10 @@ main {
 
 .even {
   background-color: #f7fafc;
+}
+
+.error {
+  color: $red;
+  margin-top: 1rem;
+  display: block;
 }

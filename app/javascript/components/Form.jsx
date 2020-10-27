@@ -8,67 +8,75 @@ export default () => {
     last_name: "",
     url: "",
   });
+  const [error, setError] = useState(null);
 
   const onChange = (event) => {
     const {
       target: { name, value },
     } = event;
     const userDetail = { ...user, [name]: value.trim() };
+    setError(null);
     setUser(userDetail);
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
-
-    console.table(user);
     // check they're all not empty
-    
+    const values = Object.values(user);
+
+    if (values.indexOf("") === -1) {
+      return;
+    }
+
     try {
       const response = await findEmail(user);
       console.table(response);
       // update state
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <div className="form-group">
-        <Input
-          type="text"
-          name="first_name"
-          id="first_name"
-          value={user.first_name}
-          placeholder="First name"
-          onChange={onChange}
-        />
-      </div>
-      <div className="form-group">
-        <Input
-          type="text"
-          name="last_name"
-          id="last_name"
-          value={user.last_name}
-          placeholder="Last name"
-          onChange={onChange}
-        />
-      </div>
-      <div className="form-group">
-        <Input
-          type="text"
-          name="url"
-          id="url"
-          value={user.url}
-          placeholder="URL"
-          onChange={onChange}
-        />
-      </div>
-      <div className="form-group">
-        <button type="submit" className="submit">
-          SEARCH
-        </button>
-      </div>
-    </form>
+    <>
+      <form onSubmit={onSubmit}>
+        <div className="form-group">
+          <Input
+            type="text"
+            name="first_name"
+            id="first_name"
+            value={user.first_name}
+            placeholder="First name"
+            onChange={onChange}
+          />
+        </div>
+        <div className="form-group">
+          <Input
+            type="text"
+            name="last_name"
+            id="last_name"
+            value={user.last_name}
+            placeholder="Last name"
+            onChange={onChange}
+          />
+        </div>
+        <div className="form-group">
+          <Input
+            type="text"
+            name="url"
+            id="url"
+            value={user.url}
+            placeholder="URL"
+            onChange={onChange}
+          />
+        </div>
+        <div className="form-group">
+          <button type="submit" className="submit">
+            SEARCH
+          </button>
+        </div>
+      </form>
+      {error && <span className="error">{error}</span>}
+    </>
   );
 };
