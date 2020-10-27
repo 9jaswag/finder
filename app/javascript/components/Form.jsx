@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Input from "./shared/Input";
+import { findEmail } from "../api";
 
 export default () => {
   const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     url: "",
   });
 
@@ -16,12 +17,19 @@ export default () => {
     setUser(userDetail);
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
 
     console.log(user);
     // check they're all not empty
-    // make API request;
+    
+    try {
+      const response = await findEmail(user);
+    } catch (error) {
+      console.log(error)
+    }
+    console.table(response);
+    // update state
   };
 
   return (
@@ -29,9 +37,9 @@ export default () => {
       <div className="form-group">
         <Input
           type="text"
-          name="firstName"
-          id="firstName"
-          value={user.firstName}
+          name="first_name"
+          id="first_name"
+          value={user.first_name}
           placeholder="First name"
           onChange={onChange}
         />
@@ -39,9 +47,9 @@ export default () => {
       <div className="form-group">
         <Input
           type="text"
-          name="lastName"
-          id="lastName"
-          value={user.lastName}
+          name="last_name"
+          id="last_name"
+          value={user.last_name}
           placeholder="Last name"
           onChange={onChange}
         />
