@@ -13,23 +13,23 @@ export default () => {
     const {
       target: { name, value },
     } = event;
-    const userDetail = { ...user, [name]: value };
+    const userDetail = { ...user, [name]: value.trim() };
     setUser(userDetail);
   };
 
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    console.log(user);
+    console.table(user);
     // check they're all not empty
     
     try {
       const response = await findEmail(user);
+      console.table(response);
+      // update state
     } catch (error) {
       console.log(error)
     }
-    console.table(response);
-    // update state
   };
 
   return (
