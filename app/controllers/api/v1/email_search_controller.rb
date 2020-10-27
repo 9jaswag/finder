@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Api::V1::EmailSearchController < ApplicationController
+  def index
+    User.all.order(created_at: :desc)
+  end
+
   def create
     email_formats = EmailFinder::EmailFormatsGenerator.new(email_search_params).call
     valid_email = EmailFinder::MailboxLayerService.new(email_formats).call

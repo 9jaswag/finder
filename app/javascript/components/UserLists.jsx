@@ -1,34 +1,7 @@
 import React from "react";
 import UserList from "./UserList";
 
-const DUMMY_DATA = [
-  {
-    first_name: "John",
-    last_name: "Doe",
-    url: "8returns.com",
-    email: "johndoe@email.com",
-  },
-  {
-    first_name: "Jane",
-    last_name: "Doe",
-    url: "8returns.com",
-    email: "janedoe@email.com",
-  },
-  {
-    first_name: "Jane",
-    last_name: "Doe",
-    url: "8returns.com",
-    email: "janedoe@email.com",
-  },
-  {
-    first_name: "Jane",
-    last_name: "Doe",
-    url: "8returns.com",
-    email: "janedoe@email.com",
-  },
-];
-
-export default ({ users = DUMMY_DATA }) => {
+export default ({ users = [] }) => {
   return (
     <section>
       <header>

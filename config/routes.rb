@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
-      resources :email_search, only: [:create]
+      resources :email_search, only: %i[create index]
     end
   end
 
