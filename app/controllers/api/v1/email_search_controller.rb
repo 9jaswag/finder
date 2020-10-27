@@ -2,7 +2,8 @@
 
 class Api::V1::EmailSearchController < ApplicationController
   def index
-    User.all.order(created_at: :desc)
+    users = User.all.order(created_at: :desc)
+    render json: json_response(nil, users), status: 200
   end
 
   def create
@@ -14,9 +15,14 @@ class Api::V1::EmailSearchController < ApplicationController
                           last_name: email_search_params[:last_name],
                           email: valid_email)
 
-      render json: json_response(user)
+      begin
+      rescue ActiveRecord::ActiveRecordError => e
+        render json: json_response(e.message), status: 400
+      end
+
+      render json: json_response(nil, user), status: 201
     else
-      render json: json_response
+      render json: json_response('No valid email found.'), status: 404
     end
   end
 
@@ -26,8 +32,8 @@ class Api::V1::EmailSearchController < ApplicationController
     params.permit(:first_name, :last_name, :url)
   end
 
-  def json_response(user = nil)
-    return { success: false, message: 'No valid email found.' } if user.nil?
+  def json_response(message, user = nil)
+    return { success: false, message: message } if user.nil?
 
     { success: true, user: user }
   end

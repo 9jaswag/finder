@@ -30,7 +30,7 @@ export default () => {
         <div className="content">
           <h3>Search for users' email by their names and URL</h3>
           <div className="form">
-            <Form setUsers={setUsers} />
+            <Form setUserState={setUsers} />
           </div>
         </div>
       </section>

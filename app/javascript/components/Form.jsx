@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Input from "./shared/Input";
 import { findEmail } from "../api";
 
-export default () => {
+export default ({ setUserState }) => {
   const [user, setUser] = useState({
     first_name: "",
     last_name: "",
@@ -21,20 +21,30 @@ export default () => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    // check they're all not empty
+
     const values = Object.values(user);
 
-    if (values.indexOf("") === -1) {
+    if (values.indexOf("") !== -1) {
+      setError("Please fill all fields.");
       return;
     }
 
     try {
       const response = await findEmail(user);
-      console.table(response);
-      // update state
+      setUserState((prevState) => [...prevState, response.user]);
+      setError(null);
     } catch (error) {
-      console.log(error);
+      setError(error.message);
+      setTimeout(() => {
+        setError(null);
+      }, 2000);
     }
+
+    setUser({
+      first_name: "",
+      last_name: "",
+      url: "",
+    });
   };
 
   return (
