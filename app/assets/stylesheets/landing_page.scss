@@ -1,3 +1,107 @@
 // Place all the styles related to the LandingPage controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+$primary-color: #14213d;
+$secondary-color: #ffffff;
+$line-height: 2.5;
+
+.wrapper {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  height: 100vh;
+}
+
+section.hero {
+  background-color: $primary-color;
+  display: grid;
+
+  .form {
+    place-self: center;
+
+    form {
+      display: inline-grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 0rem;
+      row-gap: 0rem;
+
+      input {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+          0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        line-height: $line-height;
+        padding: 0.5rem 0.75rem;
+        border: none;
+      }
+
+      .form-group {
+        &:first-child {
+          input {
+            border-bottom-left-radius: 0.25rem;
+            border-top-left-radius: 0.25rem;
+          }
+        }
+      }
+
+      button {
+        padding: 0.5rem 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        border: none;
+        border-top-right-radius: 0.25rem;
+        border-bottom-right-radius: 0.25rem;
+        line-height: $line-height;
+      }
+    }
+  }
+}
+
+main {
+  background-color: $secondary-color;
+}
+
+.user-list {
+  section {
+    width: 60vw;
+    margin: 4rem auto;
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    article {
+      h2 {
+        text-align: center;
+        margin-top: 5rem;
+        font-weight: 300;
+      }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      thead {
+        line-height: 1.625;
+        text-align: left;
+        tr {
+          th {
+            padding: 1rem 0.5rem;
+          }
+        }
+      }
+
+      tbody {
+        tr {
+          td {
+            padding: 1rem 0.5rem;
+            border: 1px solid #cbd5e0;
+          }
+        }
+      }
+    }
+  }
+}
+
+.even {
+  background-color: #f7fafc;
+}
