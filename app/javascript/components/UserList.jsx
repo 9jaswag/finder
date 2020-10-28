@@ -1,5 +1,4 @@
 import React from "react";
-import classnames from "classnames";
 
 export default ({ user }) => {
   const url = user.email.split("@")[1];

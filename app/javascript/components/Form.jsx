@@ -22,42 +22,39 @@ export default ({ setUserState }) => {
     setUser(userDetail);
   };
 
-  const submitForm = async () => {
-    const values = Object.values(user);
-
-    if (values.indexOf("") !== -1) {
-      setError("Please fill all fields.");
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const response = await findEmail(user);
-      setUserState((prevState) => [...prevState, response.user]);
-      setError(null);
-    } catch (error) {
-      setError(error.message);
-      setTimeout(() => {
-        setError(null);
-      }, 2000);
-    }
-
-    setUser({
-      first_name: "",
-      last_name: "",
-      url: "",
-    });
-    setIsLoading(false);
-    setShouldSubmitForm(false);
-  };
-
   const onSubmit = (event) => {
     event.preventDefault();
     setShouldSubmitForm(true);
   };
 
   useEffect(() => {
+    const submitForm = async () => {
+      const values = Object.values(user);
+
+      if (values.indexOf("") !== -1) {
+        setError("Please fill all fields.");
+        return;
+      }
+
+      setIsLoading(true);
+
+      try {
+        const response = await findEmail(user);
+        setUserState((prevState) => [...prevState, response.user]);
+        setError(null);
+      } catch (error) {
+        setError(error.message);
+      }
+
+      setUser({
+        first_name: "",
+        last_name: "",
+        url: "",
+      });
+      setIsLoading(false);
+      setShouldSubmitForm(false);
+    };
+
     if (shouldSubmitForm) {
       submitForm();
     }
