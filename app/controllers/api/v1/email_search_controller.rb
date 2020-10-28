@@ -11,11 +11,10 @@ class Api::V1::EmailSearchController < ApplicationController
     valid_email = EmailFinder::MailboxLayerService.new(email_formats).call
 
     if valid_email
-      user = User.create!(first_name: email_search_params[:first_name],
-                          last_name: email_search_params[:last_name],
-                          email: valid_email)
-
       begin
+        user = User.create!(first_name: email_search_params[:first_name],
+                            last_name: email_search_params[:last_name],
+                            email: valid_email)
       rescue ActiveRecord::ActiveRecordError => e
         render json: json_response(e.message), status: 400
       end

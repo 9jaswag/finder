@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "./shared/Input";
 import { findEmail } from "../api";
 import Loader from "./shared/Loader";
@@ -11,6 +11,7 @@ export default ({ setUserState }) => {
   });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [shouldSubmitForm, setShouldSubmitForm] = useState(false);
 
   const onChange = (event) => {
     const {
@@ -21,9 +22,7 @@ export default ({ setUserState }) => {
     setUser(userDetail);
   };
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-
+  const submitForm = async () => {
     const values = Object.values(user);
 
     if (values.indexOf("") !== -1) {
@@ -50,7 +49,19 @@ export default ({ setUserState }) => {
       url: "",
     });
     setIsLoading(false);
+    setShouldSubmitForm(false);
   };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setShouldSubmitForm(true);
+  };
+
+  useEffect(() => {
+    if (shouldSubmitForm) {
+      submitForm();
+    }
+  }, [shouldSubmitForm]);
 
   return (
     <>
