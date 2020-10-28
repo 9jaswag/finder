@@ -17,6 +17,7 @@ class Api::V1::EmailSearchController < ApplicationController
                             email: valid_email)
       rescue ActiveRecord::ActiveRecordError => e
         render json: json_response(e.message), status: 400
+        return
       end
 
       render json: json_response(nil, user), status: 201
