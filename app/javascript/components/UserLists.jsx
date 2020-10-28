@@ -11,21 +11,11 @@ export default ({ users = [] }) => {
         {users.length === 0 ? (
           <h2>No valid emails.</h2>
         ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>URL</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user, index) => (
-                <UserList user={user} key={index} index={index} />
-              ))}
-            </tbody>
-          </table>
+          <>
+            {users.map((user) => (
+              <UserList user={user} key={user.id} />
+            ))}
+          </>
         )}
       </article>
     </section>
