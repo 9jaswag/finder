@@ -22,6 +22,10 @@ A simple app that lets users find valid email addresses based on the contact’s
   ```sh
   rails db:setup
   ```
+- Create an `application.yml` file at `config/application.yml`. In this file, add your Mailboxlayer API key:
+  ```yml
+  MAILBOXLAYER_API_KEY: <your API key here>
+  ```
 - Serve the app:
   ```sh
   rails server
