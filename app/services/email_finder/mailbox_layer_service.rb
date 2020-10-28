@@ -13,13 +13,17 @@ module EmailFinder
         url = mailboxlayer_endpoint(email)
         response = HTTParty.get(url)
 
-        return email if response['smtp_check']
+        return email if valid_email?(response)
       end
 
       false
     end
 
     private
+
+    def valid_email?(response)
+      response['format_valid'] && response['mx_found'] && response['smtp_check'] && !response['catch_all']
+    end
 
     def mailboxlayer_api_key
       ENV['MAILBOXLAYER_API_KEY']
